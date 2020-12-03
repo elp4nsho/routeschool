@@ -1,0 +1,24 @@
+.modalAgregar{
+  position: fixed;
+  background: rgba(0,0,0,0.8);
+  z-index: 10000;
+  width: 100vw;
+  height: 100vh;
+}
+.contenidoModal{
+  background: white;
+  max-width: 90vw;
+  margin: auto;
+  transform: translateY(50vw);
+  padding: 20px;
+}
+.contenido{
+  min-width: 40vw;
+  border-top:solid 1px;
+  border-bottom:solid 1px;
+
+}
+
+.contenido:hover{
+  background: gray;
+}

@@ -1,0 +1,82 @@
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="8">
+                <ion-select [(ngModel)]="selectValueMes" (ionChange)="loadCsv(selectValueMes,2020)" name="" id="">
+                    <ion-select-option value="1">Enero</ion-select-option>
+                    <ion-select-option value="2">Febrero</ion-select-option>
+                    <ion-select-option value="3">Marzo</ion-select-option>
+                    <ion-select-option value="4">Abril</ion-select-option>
+                    <ion-select-option value="5">Mayo</ion-select-option>
+                    <ion-select-option value="6">Junio</ion-select-option>
+                    <ion-select-option value="7">Julio</ion-select-option>
+                    <ion-select-option value="8">Agosto</ion-select-option>
+                    <ion-select-option value="9">Septiembre</ion-select-option>
+                    <ion-select-option value="10">Octubre</ion-select-option>
+                    <ion-select-option value="11">Noviembre</ion-select-option>
+                    <ion-select-option value="12">Diciembre</ion-select-option>
+                </ion-select>
+            </ion-col>
+            <ion-col size="4">
+
+                <ion-button color="success" (click)="exportCSV()">
+                    Descargar
+                </ion-button>
+            </ion-col>
+
+
+        </ion-row>
+    </ion-grid>
+    <ion-item>
+        <ion-label>Ocultar registros sin fin</ion-label>
+        <ion-checkbox (ionChange)="cambiarRegistros()" slot="start" [(ngModel)]="registrosSinFin"></ion-checkbox>
+    </ion-item>
+
+    <div class="laTabla">
+        <table>
+            <tr>
+                <th>Dia</th>
+                <th>Estado</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Duracion</th>
+                <th>Asistentes</th>
+                <th>Inasistentes</th>
+                <th>Nombres asistentes</th>
+                <th>Nombres inasistentes</th>
+            </tr>
+            <tr *ngFor="let row of dataParseadaFront">
+                <td>
+                    <p>{{row.dia}}</p>
+                </td>
+                <td>
+                    <p>{{row.estado}}</p>
+                </td>
+                <td>
+                    <p>{{row.horaDeInicio}}</p>
+                </td>
+                <td>
+                    <p>{{row.horaDeTermino == 'Termino no informado' ? 'No terminado' : row.horaDeTermino}}</p>
+                </td>
+                <td>
+                    <p>{{row.duracion}}</p>
+                </td>
+
+                <td>
+                    <p>{{row.asistentesReales}}</p>
+                </td>
+                <td>
+                    <p>{{row.inasistentes}}</p>
+                </td>
+                <td>
+                    <p>{{row.nAsistentes}}</p>
+                </td>
+                <td>
+                    <p>{{row.nInasistentes}}</p>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+</ion-content>

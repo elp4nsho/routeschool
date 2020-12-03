@@ -1,0 +1,40 @@
+<ion-content>
+
+    <div *ngIf="mostrarModalAgregar" class="modalAgregar" (click)="cerrarModal($event)">
+        <div class="contenidoModal">
+            <div (click)="generarLink()" class="contenido">
+                <p>Generar link de registro</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="mostrarModalLinkRegistro" class="modalAgregar" (click)="cerrarModalLink($event)">
+        <div class="contenidoModal">
+            <div class="contenido">
+                <a [href]="linkRegistro">{{linkRegistro}}</a>
+                <br>
+                <ion-button expand="block" (click)="share(linkRegistro)">compartir</ion-button>
+            </div>
+        </div>
+    </div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon (click)="modalAgregar()" name="add"></ion-icon>
+
+        </ion-fab-button>
+    </ion-fab>
+
+    <div class="colegiosLista">
+        <ion-card *ngFor="let col of listaApoderados">
+            <ion-item>
+                <ion-icon name="people" slot="start"></ion-icon>
+                <ion-label>{{col.nombre}}</ion-label>
+              <ion-icon (click)="irA(col)" name="add-circle" slot="end" size="large"></ion-icon>
+
+            </ion-item>
+
+
+        </ion-card>
+    </div>
+
+</ion-content>

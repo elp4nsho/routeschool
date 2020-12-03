@@ -1,0 +1,167 @@
+<ion-header *ngIf="!modoViaje">
+    <ion-toolbar color="blanca">
+        <ion-title style="text-align: center">Preparacion del viaje</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-header *ngIf="modoViaje">
+    <ion-toolbar color="blanca">
+        <ion-title style="text-align: center">Indicaciones</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <div class="vistaPosActual" *ngIf="vistaDePosicionActual && !vistaDeMapa && !vistaDePosiciones">
+        <ion-list>
+
+            <ion-list-header>
+                Punto de inicio
+            </ion-list-header>
+
+
+        </ion-list>
+        <ion-radio-group [(ngModel)]="posicionSeleccionada">
+
+            <ion-item>
+                <ion-icon name="locate-outline" slot="start" size="large"></ion-icon>
+                <ion-label>
+                    <h2>Utilizar Ubicacion</h2>
+                    <h3>Actual</h3>
+                </ion-label>
+                <ion-radio slot="end" value="current"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-icon name="home-outline" slot="start" size="large"></ion-icon>
+                <ion-label>
+                    <h2>Hogar del transportista</h2>
+                    <h3>Cambiar</h3>
+                </ion-label>
+                <ion-radio slot="end" value="casaT"></ion-radio>
+            </ion-item>
+        </ion-radio-group>
+        <ion-button (click)="confirmarPosicionActual()" expand="full">Aceptar</ion-button>
+    </div>
+    <div class="vistaPosiciones" *ngIf="!vistaDePosicionActual && !vistaDeMapa && vistaDePosiciones">
+        <ion-item>
+            <ion-label>{{mananaTarde ? 'Viaje de mañana' : 'Viaje de Tarde'}}</ion-label>
+            <ion-toggle (ionChange)="mananaOTarde()" [(ngModel)]="mananaTarde"></ion-toggle>
+        </ion-item>
+        <ion-list>
+            <ion-list-header>
+                Principio del recorrido
+            </ion-list-header>
+
+
+        </ion-list>
+
+        <ion-reorder-group (ionItemReorder)="onItemReorder($event)" [disabled]="false">
+
+
+            <ion-item *ngFor="let n of listaTotalDePuntos">
+                <ion-icon [name]="n.colegio ? 'happy-outline':'school-outline'" slot="start" size="large"></ion-icon>
+
+                <!--  <ion-avatar slot="start">
+                      <img src="https://picsum.photos/200/300">
+                  </ion-avatar>-->
+                <ion-label>
+                    <h2>{{n.nombre}}</h2>
+                   <!-- <h3>{{n.dirDecode | async}}</h3>-->
+                    <p *ngIf="n.colegio">{{n.colegio["nombre"]}}</p>
+                    <!-- <p *ngIf="!(n.colegio)">colegio</p>-->
+                </ion-label>
+                <ion-icon slot="end" name="close-circle-outline" color="danger" (click)="eliminar(n)"></ion-icon>
+                <ion-reorder slot="end"></ion-reorder>
+
+            </ion-item>
+
+
+        </ion-reorder-group>
+        <ion-list>
+            <ion-list-header>
+                Fin del recorrido
+            </ion-list-header>
+
+
+        </ion-list>
+        <ion-button expand="full" (click)="prepararRuta()">Preparar viaje</ion-button>
+
+
+    </div>
+
+    <div class="vistaMapa" [hidden]="!(!vistaDePosicionActual && vistaDeMapa && !vistaDePosiciones)">
+
+    <div class="instruccionActual">
+            <ion-grid>
+                <ion-row class="ion-align-items-center">
+                    <ion-col size="2">
+                        <ion-icon name="volume-high-outline" size="large"></ion-icon>
+                    </ion-col>
+                    <ion-col size="10"><p style="margin: 0" [innerHTML]="instruccionActual"></p>
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </div>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-button size="small" (click)="anterior()">Indicacion anterior</ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button size="small" (click)="siguiente()">Indicacion siguiente
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div #mapElement class="map"></div>
+        <div #rightPanel></div>
+        <!--<ion-title style="text-align: center">Puntos de llegada</ion-title>-->
+        <ion-grid>
+            <ion-row class="ion-align-items-center">
+                <ion-col size="1"></ion-col>
+                <ion-col size="1">
+                    <ion-icon (click)="anteriorD()" name="arrow-back" size="large"></ion-icon>
+                </ion-col>
+                <ion-col size="8">
+                    <div class="infoProx">
+                        <div class="infoProxD">
+                            <p>En dirección hacia <b>{{destino}}</b> </p><br>
+                            <!--<img src="https://picsum.photos/100/" alt="">-->
+                            <ion-icon
+                                    [name]="puntoActual == undefined ? 'happy-outline' : puntoActual['esColegio'] ? 'school-outline':'happy-outline' "
+                                    size="large"></ion-icon>
+                            <div>
+                                <p style="float: left;color: blue">distancia {{distanciaRestanteDestino.text}}</p>
+                                <p style="float: right;color: blue">tiempo {{tiempoRestanteDestino.text}}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-icon (click)="siguienteD()" name="arrow-forward" size="large"></ion-icon>
+                    <!--    <ion-label>
+                            <h2>{{n.nombre}}</h2>
+                            <h3>{{n.direccion}}</h3>
+                            <p *ngIf="n.colegio">{{n.colegio["nombre"]}}</p>
+                             <p *ngIf="!(n.colegio)">colegio</p>
+                        </ion-label>-->
+
+                </ion-col>
+
+            </ion-row>
+        </ion-grid>
+
+
+    </div>
+
+    <!--    <button (click)="calculateAndDisplay()">calcular</button>
+        <button (click)="centrar()">centrar</button>
+        <button (click)="anterior()">an</button>
+        <button (click)="siguiente()">sg</button>-->
+    <!-- <ion-button expand="block" (click)="calculateAndDisplay()">Crear ruta</ion-button>
+     <ion-button expand="block" (click)="hacerZoom()"> yo</ion-button>
+     <ion-button expand="block" (click)="laMarker()"> lamarkar</ion-button>-->
+
+
+</ion-content>

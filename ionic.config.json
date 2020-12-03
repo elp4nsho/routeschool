@@ -1,0 +1,7 @@
+{
+  "name": "reset-pass",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

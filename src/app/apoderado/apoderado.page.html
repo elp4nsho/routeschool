@@ -1,0 +1,58 @@
+<ion-content>
+    <ion-item>
+        <ion-icon (click)="atras('apoderados')" name="arrow-back"></ion-icon>
+    </ion-item>
+
+<!--    <ion-item>
+        <ion-label position="floating">Rut</ion-label>
+        <ion-input [(ngModel)]="apoderado.rutAp"></ion-input>
+    </ion-item>-->
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="apoderado.nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Direccion</ion-label>
+        <ion-input [(ngModel)]="apoderado.direccion"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="apoderado.email"></ion-input>
+    </ion-item>
+
+    <!--<ion-button (click)="editar()" color="success" expand="full">Guardar</ion-button>
+-->
+    <ion-item color="warning">
+        <ion-label>Niños</ion-label>
+        <ion-select  (ionChange)="seleccionarNino('d')" [(ngModel)]="ninoElegido"  placeholder="seleccione un niño">
+            <ion-select-option *ngFor="let ni of apoderado.nino" [value]="ni">{{ni.nombre}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div *ngIf="ninoElegido">
+       <!-- <ion-item>
+            <ion-label position="floating">rut niño</ion-label>
+            <ion-input [(ngModel)]="ninoElegido.rutN"></ion-input>
+        </ion-item>-->
+        <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input [(ngModel)]="ninoElegido.nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Modalidad</ion-label>
+            <ion-input [value]="ninoElegido.reglas == 1 ?'Solo mañana':ninoElegido.reglas == 2 ? 'Solo tarde':ninoElegido.reglas ==3 ? 'Mañana/Tarde':'no informado'"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Direccion</ion-label>
+            <ion-input [(ngModel)]="ninoElegido.direccion"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Colegio</ion-label>
+            <ion-input [(ngModel)]="ninoElegido.colegio.nombre"></ion-input>
+        </ion-item>
+
+    </div>
+    <ion-button color="danger" expand="full" (click)="eliminar()">Eliminar apoderado</ion-button>
+
+
+
+</ion-content>

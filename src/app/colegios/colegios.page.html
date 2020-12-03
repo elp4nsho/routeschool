@@ -1,0 +1,30 @@
+<ion-content>
+
+    <div *ngIf="mostrarModalAgregar" class="modalAgregar" (click)="cerrarModal($event)">
+        <div class="contenidoModal">
+            <div (click)="agregarColegio()" class="contenido">
+                <p>Agregar colegio</p>
+            </div>
+        </div>
+    </div>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon (click)="modalAgregar()" name="add"></ion-icon>
+
+        </ion-fab-button>
+    </ion-fab>
+    <div class="colegiosLista">
+        <ion-card *ngFor="let col of listaColegios">
+            <ion-item>
+                <ion-icon name="school" slot="start"></ion-icon>
+                <ion-label>{{col.nombre}}</ion-label>
+                <ion-icon (click)="irAColegio(col)" name="add-circle" size="large" slot="end"></ion-icon>
+            </ion-item>
+
+        </ion-card>
+    </div>
+
+
+</ion-content>

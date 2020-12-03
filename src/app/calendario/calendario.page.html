@@ -1,0 +1,33 @@
+<ion-content class="ion-padding">
+    <em>
+        seleccione un dia para consultar asistencia
+    </em>
+    <ion-calendar
+
+            [(ngModel)]="date"
+            (change)="onChange($event)"
+            [type]="'string'"
+            [format]="'YYYY-MM-DD'">
+    </ion-calendar>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+
+
+                <ion-card>
+                    <ion-item *ngFor="let n of listaNinos" [color]="n.reglas == 0 ? 'danger' : n.reglas == 1 ? 'warning' : n.reglas == 2 ? 'warning' : n.reglas == 3 ? 'success':'no informado'">
+
+                        <ion-icon [name]="n.reglas == 3 ? 'happy-outline':n.reglas == 0 ?'close-circle-outline':'sad-outline'" slot="start"></ion-icon>
+                        <ion-label>{{n.nombre}} {{n.reglas == 0 ? 'no va' : n.reglas == 1 ? 'solo mañana' : n.reglas == 2 ? 'solo tarde' : n.reglas == 3 ? 'Mañana y Tarde':'no informado'}}  </ion-label>
+                    </ion-item>
+                    <!--  <ion-item *ngFor="let n of listaNinos" >
+
+                          <ion-icon name="people" slot="start"></ion-icon>
+                          <ion-label>{{n.nombre}}{{n.direccion}}  {{n.reglas}} {{n.colegio.idColegio}} </ion-label>
+                      </ion-item>-->
+                </ion-card>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

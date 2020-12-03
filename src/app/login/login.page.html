@@ -1,0 +1,57 @@
+<ion-content class="ion-padding">
+    <img class="icon" src="assets/img/buss.png" alt="">
+    <form *ngIf="!vistaRegistrar" autocomplete="off" (submit)="doLogin()">
+        <ion-item>
+            <ion-label position="stacked"> Correo electrónico <span class="text-danger">*</span></ion-label>
+            <ion-input type="text" [(ngModel)]="email" name="email" required="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked"> Contraseña <span class="text-danger">*</span></ion-label>
+            <ion-input [(ngModel)]="password" type="password" name="password" required="true"></ion-input>
+        </ion-item>
+        <ion-button color="primary" class="ion-margin-top" type="submit" expand="block">Entrar</ion-button>
+    </form>
+    <form *ngIf="vistaRegistrar" autocomplete="off" (submit)="registrarse()">
+        <ion-item>
+            <ion-label position="stacked"> Nombre <span class="text-danger">*</span></ion-label>
+            <ion-input color="black" type="text" [(ngModel)]="name" name="email" required="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked"> Correo electrónico <span class="text-danger">*</span></ion-label>
+            <ion-input color="black" type="text" [(ngModel)]="email" name="email" required="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked"> Contraseña <span class="text-danger">*</span></ion-label>
+            <ion-input [(ngModel)]="password" type="password" name="password" required="true"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-top" type="submit" expand="block">Registrarse</ion-button>
+    </form>
+
+
+    <ion-grid *ngIf="!vistaRegistrar">
+        <ion-row>
+            <ion-col size="3">
+                <ion-button class="google" (click)="loginGoogle()">
+                    <ion-icon color="blanca" name="logo-google"></ion-icon>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3">
+                <ion-button class="fb" (click)="loginFacebook()">
+                    <ion-icon color="blanca" name="logo-facebook"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class="ion-text-center ion-margin-top" *ngIf="!vistaRegistrar">
+        <a (click)="olvideContra()"><small>Olvidé mi Contraseña</small></a>
+        <br>
+        <a (click)="irARegistrar()"><small>Registrate aqui</small></a>
+    </div>
+
+    <div class="ion-text-center ion-margin-top" *ngIf="vistaRegistrar">
+        <a (click)="irARegistrar()"><small>Volver</small></a>
+    </div>
+
+
+</ion-content>
